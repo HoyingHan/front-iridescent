@@ -12,22 +12,20 @@
 			loginForm.addEventListener('submit',function(e){
 				if(!isSubmiting && this.check()){
 					var value1 = userName.value;
-					var value2 = md5(password.value);
+					var value2 = password.value;
 					isSubmiting = true;
 					loading.show();
-					ajax({
-						data:{userName:value1,password:value2},
-						url:'/api/login',
-						success:function(result){
-							loading.hide();
-							location.href = '/';
-						},
-						error:function(message){
-							loading.result(message||'登录失败');
-							isSubmiting = false;
-						}
-					});
-				}
+					if(value1 == 'buyer' && value2 == 'reyub'){
+						loading.hide();
+						location.href = '/buyerIndex';
+					}else if(value1 == 'seller' && value2 == 'relles'){
+						loading.hide();
+						location.href = '/sellerIndex';
+					}else{
+						loading.result(message||'登录失败');
+						isSubmiting = false;
+					}
+																					}
 			}.bind(this),false);
 			[userName,password].forEach(function(item){
 				item.addEventListener('input',function(e){
